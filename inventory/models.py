@@ -9,7 +9,8 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=10, decimal_places=2)    
-    author = models.ManyToManyField(Author) # this is so that when we delete the author his books are also deleted
+    author = models.ManyToManyField(Author) 
 
     def __str__(self):
-        return f"{self.title} by {self.author.name}"    # so that we have names not object()
+        author_names = ", ".join([a.name for a in self.author.all()])
+        return f"{self.title} by {author_names}"
